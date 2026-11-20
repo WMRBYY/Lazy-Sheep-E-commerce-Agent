@@ -1,52 +1,55 @@
-<h1 align="center">MeiYeAI 电商创作工作台</h1>
-<p align="center">为商品素材制作、视觉对照与工作流编排而建的开源工作台</p>
+<h1 align="center">Lazy Sheep - E-commerce Agent</h1>
 <p align="center">
-  <a href="https://github.com/WMRBYY/meiyeai-ecommerce/releases/tag/9.0">9.0 版本说明</a>
+  <a href="https://meiyeai.cn/">在线体验</a>
+  · <a href="https://github.com/WMRBYY/Lazy-Sheep-E-commerce-Agent/releases/tag/9.0">9.0 版本说明</a>
   · <a href="#功能预览">功能预览</a>
   · <a href="#快速开始">快速开始</a>
   · <a href="#许可与署名">许可与署名</a>
 </p>
 
-在同一个工作台里完成商品生图、批量换装、主图与详情图制作。用对照台比较生成结果，用电商画布编排素材与工作流，在作品库按类型找回阶段产出。项目由 **meiyeai** 维护，基于 Open AI Canvas 开发，支持自部署。
-
-![MeiYeAI 电商创作首页](docs/screenshots/02-home.jpg)
+这是一个可自部署的电商工作台。可以做商品图、换装、主图和详情图，也可以在画布里把同一组素材接到多个出图步骤上。由 **meiyeai** 维护，基于 Open AI Canvas 开发。
 
 ## 功能预览
 
-> 界面取自 MeiYeAI 电商工作台实拍。发布图已遮挡账号信息，涉及原站素材的位置使用演示图。自部署后的图库由自己的创作记录填充，模板库由部署者提供有权使用的目录与媒体。
+以下截图来自在线体验站。自部署后的模板和作品取决于你配置的素材及生成记录。
 
-### 首页与生图
+### 首页
 
-首页汇集常用创作入口，可以从一句描述或参考图开始。生图工作台将生成参数与历史记录放在同一页，支持对话生图、批量换装和图像加工，可以按功能筛选结果，并重新编辑已有记录。
+在首页切换生图或视频。做视频时可以在同一个输入框里添加商品图、参考视频和音频，再选比例、时长和分辨率。
 
-![电商生图工作台与生成记录](docs/screenshots/01-image.jpg)
+![电商首页的视频输入框和常用工具](docs/screenshots/02-home.png)
 
-### 对照台
+### 生图
 
-从生成记录或作品库打开图片，在一张工作台上放置多个版本。可并排排列、缩放查看细节，按需查看原图或继续裁剪、重绘和放大。
+换装、印花提取和局部重绘的结果都在生成记录里。按功能筛一遍，找到要接着改的图，点「重新编辑」。也可以打开单张图片，在对照台里比较几个版本。
 
-![对照台与右侧图库](docs/screenshots/03-compare.jpg)
+![生图生成记录中的换装、印花提取和局部重绘结果](docs/screenshots/01-image.png)
 
-### 模板与详情图
+### 视频模板
 
-| 视频模板 | 商品主图与详情图 |
-| --- | --- |
-| ![模板目录与筛选条件](docs/screenshots/04-templates.jpg) | ![自动套餐与详情图参数](docs/screenshots/05-detail.jpg) |
-| 按时长、形式和商品品类筛选，在卡片内预览构图与节奏。模板媒体由部署者配置。 | 用商品图确定主体，用参考图约束版式。可分别制作主图和详情图，也可通过自动套餐统一设置平台、尺寸与张数。 |
+想找一条开箱视频，或者看看商品特写怎么拍，可以按时长、形式和品类筛选，再在列表里预览。自部署时使用自己有权使用的模板素材。
+
+![视频模板列表与时长、形式、品类筛选](docs/screenshots/04-templates.png)
+
+### 主图与详情图
+
+上传商品图后，可以补一张参考图来定构图和排版。主图、详情图可以分开做，也可以从「自动套餐」一起出。右侧保留生成结果，方便回看同一款商品的不同版本。
+
+![商品图、参考图与详情图结果](docs/screenshots/05-detail.png)
 
 ### 电商画布
 
-项目页集中管理本机画布和工作流入口。在编辑器内通过节点和连线组织素材、提示词与生成步骤，适合把多步骤商品创作方案整理成可复用的流程。
+从项目页新建画布，或选一个工作流开始。图中的换装工作流把商品图和模特全身照接到四个出图节点，分别做全身正面、半身侧面、坐姿和行走抓拍。
 
-![画布项目与工作流](docs/screenshots/06-canvas.jpg)
+![画布项目和工作流列表](docs/screenshots/06-canvas.png)
 
-![画布编辑器](docs/screenshots/06a-canvas-editor.jpg)
+![用同一组商品图和模特参考生成四种构图的画布](docs/screenshots/06a-canvas-editor.png)
 
 ### 作品库
 
-图片与视频按日期归档，支持按媒体类型、功能和收藏状态筛选。可批量管理产出，也可点开图片回到对照台继续处理。
+做完一组图，可以在作品页按日期找到整批结果。页内可切换图片和视频、只看收藏，也可以批量选中。
 
-![作品图库及其筛选与批量操作](docs/screenshots/07-works.jpg)
+![作品页中同一商品的多张素材和筛选工具](docs/screenshots/07-works.png)
 
 ### 自部署管理
 
@@ -54,7 +57,7 @@
 
 ## 公开边界
 
-视频复刻、剧本创作及电商视频 Agent 的前端、后端、数据模型、迁移和数据均不包含在本仓库中。对应前端入口仅作为禁用图标展示。
+灵犀中枢、视频复刻、剧本创作及电商视频 Agent 的前端实现、后端流程、数据模型、迁移和业务数据均为私有。开源版侧栏仅保留视频复刻和剧本创作的禁用图标。
 
 指定移除的后台管理功能不提供管理页面或接口。保留功能所需的通用运行组件仍可存在，例如支付适配器、通用任务队列和画布助手运行组件。[完整范围](docs/PUBLIC_SCOPE.md)
 
@@ -63,8 +66,8 @@
 ## 快速开始
 
 ```sh
-git clone https://github.com/WMRBYY/meiyeai-ecommerce.git
-cd meiyeai-ecommerce
+git clone https://github.com/WMRBYY/Lazy-Sheep-E-commerce-Agent.git
+cd Lazy-Sheep-E-commerce-Agent
 ```
 
 可使用 Docker Compose 启动整套服务，或在本机分别运行前后端。
@@ -131,6 +134,6 @@ go test ./...
 
 ## 许可与署名
 
-MeiYeAI 电商创作工作台由 **meiyeai** 维护。本仓库的 MIT 许可允许二次开发和商业使用。复制或分发软件及其主要部分时，须保留 meiyeai 与适用的上游版权及许可声明。[MIT 许可证](LICENSE) · [版权与来源](NOTICE)
+本项目采用 [MIT](https://github.com/ddcat-ai/open-ai-canvas/blob/main/LICENSE) 协议。项目特定代码的版权归 Lazy Sheep - E-commerce Agent 所有；第三方组件按各自附带的许可证和版权声明使用。
 
-第三方组件遵循各自许可证。生产部署涉及 tldraw 绘图组件时需使用有效许可，FFmpeg 内核另有 GPL 条件。[第三方许可](docs/THIRD_PARTY_LICENSES.md)
+[本仓库许可证](LICENSE) · [版权与来源](NOTICE) · [第三方许可](docs/THIRD_PARTY_LICENSES.md)

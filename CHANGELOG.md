@@ -3,10 +3,11 @@
 ## 9.0
 
 - 将公开发行版本统一标为 9.0。
-- 在仓库首页展示首页、生图、对照台、模板、详情图、电商画布与作品库，并补充自部署说明。
+- 仓库更名为 Lazy Sheep - E-commerce Agent。README 增加在线体验入口，使用维护者提供的页面截图与工作流示例。
+- 明确灵犀中枢属于私有功能。
 - 在 GitHub Release 汇总公开版功能、部署方式、数据隔离与授权说明。
 
-[9.0 完整发布说明](https://github.com/WMRBYY/meiyeai-ecommerce/releases/tag/9.0)
+[9.0 完整发布说明](https://github.com/WMRBYY/Lazy-Sheep-E-commerce-Agent/releases/tag/9.0)
 
 ## 0.1.0
 

@@ -16,7 +16,7 @@ test("private storefront features have no pages, preloads or API implementation"
     expect(rail).toContain('label: "剧本创作", icon: "script", to: "", disabled: true');
     expect(rail).toContain("if (item.disabled)");
     const home = source("pages/shop/shop-home.tsx");
-    expect(home).not.toMatch(/视频复刻|深度复刻|剧本创作/);
+    expect(home).not.toMatch(/灵犀中枢|script-brain|视频复刻|深度复刻|剧本创作/);
     expect(home).toContain('/shop/image?media=video');
 });
 
