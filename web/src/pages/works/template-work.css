@@ -1,0 +1,80 @@
+.ecw {
+    --ecw-glass: rgba(20, 20, 24, 0.72);
+    --ecw-line: rgba(255, 255, 255, 0.18);
+    --ecw-ink: #fff;
+    --ecw-like: #ff4d6d;
+}
+.ecw-like {
+    position: relative;
+}
+.ecw-heart-burst {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+}
+.ecw-heart-burst svg {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    width: 12px;
+    height: 12px;
+    fill: var(--ecw-like, #ff4d6d);
+    color: var(--ecw-like, #ff4d6d);
+    animation: ecw-heart 700ms ease-out both;
+}
+@keyframes ecw-heart {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 0) scale(0.3);
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc((var(--heart-index) - 3) * 18px), calc(-48px - var(--heart-index) * 6px)) scale(1.2) rotate(calc(var(--heart-index) * 20deg));
+    }
+}
+@keyframes ecw-in {
+    from {
+        opacity: 0;
+        translate: 0 -8px;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+.template-work button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+}
+@media (max-width: 760px) {
+    .ecw-info {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .ecw-info > div:first-child {
+        min-width: 0;
+    }
+    .ecw-info > div:last-child {
+        align-self: flex-end;
+    }
+    .ecw-info button {
+        white-space: nowrap;
+    }
+    .ecw h1 {
+        max-width: 75vw;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ecw *,
+    .ecw-heart-burst svg {
+        animation: none;
+        transition: none;
+    }
+    .ecw-heart-burst {
+        display: none;
+    }
+}

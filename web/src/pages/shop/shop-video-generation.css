@@ -1,0 +1,617 @@
+/* Ecommerce video history and the prompt, references and settings in its dock. */
+.svg-workspace {
+    position: absolute;
+    inset: 0;
+}
+.svg-workspace[hidden] {
+    display: none;
+}
+.svg-workspace .wb-page {
+    height: 100%;
+}
+.svg-workspace .wb-page-embedded .wb-shell {
+    display: block;
+    padding: var(--space-3) var(--space-6) 0;
+    background: transparent;
+    --wb-ink: var(--ms-text);
+    --wb-ink-2: var(--ms-muted);
+    --wb-ink-3: var(--ms-faint);
+    --wb-muted: var(--ms-surface-2);
+    --wb-hover: var(--ms-hover);
+    --wb-line: var(--ms-border);
+}
+.svg-workspace .wb-page-embedded .wb-gallery {
+    display: flex;
+    height: 100%;
+}
+.svg-workspace .wb-gallery-scroll {
+    padding-bottom: calc(var(--sim-dock-height, 0px) + var(--space-8));
+    scroll-padding-bottom: calc(var(--sim-dock-height, 0px) + var(--space-8));
+}
+.svg-workspace .wb-gallery-scroll:has(> .wb-empty) {
+    overflow: hidden;
+}
+.svg-workspace .wb-batch-list {
+    gap: var(--space-6);
+}
+.svg-day > header {
+    margin-bottom: var(--space-3);
+    color: var(--ms-text);
+    font-size: var(--fs-ui);
+}
+.svg-tile-placeholder {
+    display: grid;
+    place-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    font-size: var(--fs-caption);
+}
+.svg-composer.wb-shell {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+    background: transparent;
+    --wb-muted: var(--ms-surface-2);
+    --wb-ink: var(--ms-text);
+    --wb-ink-2: var(--ms-muted);
+    --wb-ink-3: var(--ms-faint);
+}
+.svg-composer:not([data-canvas-video]) .svg-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+    min-height: 0;
+    padding: var(--space-3) var(--space-4);
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.svg-composer:not([data-canvas-video]) .svg-inputs > .wb-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 94px;
+    min-width: 0;
+    min-height: 94px;
+    gap: var(--space-1);
+    padding: 0;
+    border: 0;
+}
+.svg-composer:not([data-canvas-video]) .svg-inputs .wb-section-head {
+    padding-right: 40px;
+    align-items: center;
+    min-height: 30px;
+}
+.svg-composer:not([data-canvas-video]) .svg-inputs .wb-section-title > span {
+    display: none;
+}
+.svg-composer:not([data-canvas-video]) .svg-inputs .wb-section-title {
+    margin: 0;
+}
+.svg-composer:not([data-canvas-video]) .svg-inputs .wb-prompt {
+    flex: 1;
+    min-height: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+}
+.svg-composer:not([data-canvas-video]) .svg-inputs .wb-prompt-editor {
+    flex: 1;
+    height: 0;
+    min-height: 44px;
+}
+.svg-composer:not([data-canvas-video]) .svg-inputs .wb-prompt-meta {
+    flex-direction: row-reverse;
+    margin-top: var(--space-1);
+}
+.svg-composer:not([data-canvas-video]) .svg-inputs .wb-prompt-meta > span:first-child {
+    white-space: nowrap;
+}
+.svg-composer[data-canvas-video] .svg-inputs {
+    display: grid;
+    grid-template-columns: minmax(0, 36%) minmax(0, 1fr);
+    gap: var(--space-4);
+    flex: 1;
+    min-height: 0;
+    padding: var(--space-4);
+    padding-right: calc(var(--space-4) + 36px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.svg-composer[data-canvas-video] .svg-inputs > .wb-section {
+    min-width: 0;
+    min-height: 0;
+    gap: var(--space-2);
+    padding: 0;
+    border: 0;
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-section-head {
+    align-items: start;
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-section-title span {
+    font-size: var(--fs-label);
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-section[aria-label="画面描述"] > .wb-section-head {
+    display: none;
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-ref-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: var(--space-1);
+    scrollbar-width: thin;
+}
+.svg-composer[data-canvas-video] .svg-inputs :is(.wb-ref-row > *, .wb-drop) {
+    flex-shrink: 0;
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-drop {
+    flex: 1 0 auto;
+    min-height: 72px;
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-drop-copy small {
+    display: none;
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-prompt {
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-prompt-editor {
+    flex: 1;
+    height: 0;
+    min-height: 48px;
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-prompt-meta > span:last-child {
+    display: none;
+}
+.svg-references {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+}
+.svg-reference {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    min-width: 0;
+    border-radius: var(--r-lg);
+    background: var(--ms-soft);
+    transition:
+        background-color var(--motion-dur-base),
+        box-shadow var(--motion-dur-base);
+}
+.svg-reference:has(.svg-ref-upload:not(:disabled):hover),
+.svg-reference[data-dragging] {
+    background: var(--ms-hover);
+}
+.svg-reference[data-dragging] {
+    box-shadow: inset 0 0 0 1px var(--ms-accent-strong);
+}
+.svg-reference[data-unsupported] {
+    color: var(--ms-muted);
+}
+.svg-ref-upload-wrap {
+    min-width: 0;
+}
+.svg-ref-upload {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    min-height: 48px;
+    padding: var(--space-2) var(--space-3);
+    border: 0;
+    border-radius: var(--r-lg);
+    text-align: start;
+    color: var(--ms-text);
+    background: transparent;
+    cursor: pointer;
+}
+.svg-ref-upload:disabled {
+    cursor: not-allowed;
+    color: var(--ms-muted);
+}
+.svg-ref-upload > svg {
+    flex: 0 0 auto;
+}
+.svg-ref-name {
+    min-width: 0;
+    flex: 1;
+    display: grid;
+}
+.svg-ref-name strong {
+    font-size: var(--fs-ui);
+    font-weight: 600;
+}
+.svg-ref-name small {
+    color: var(--ms-muted);
+    font-size: var(--fs-label);
+    font-variant-numeric: tabular-nums;
+}
+.svg-ref-add {
+    color: var(--ms-muted);
+    transition:
+        color var(--motion-dur-fast),
+        rotate var(--motion-dur-fast);
+}
+.svg-ref-upload:not(:disabled):hover .svg-ref-add {
+    color: var(--ms-text);
+}
+.svg-ref-upload:not(:disabled):active .svg-ref-add {
+    rotate: 20deg;
+}
+.svg-ref-upload:disabled .svg-ref-add {
+    display: none;
+}
+.svg-ref-library.ant-btn {
+    margin-inline-end: var(--space-1);
+    color: var(--ms-muted);
+}
+.svg-ref-items {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: var(--space-2);
+    min-width: 0;
+    padding: 0 var(--space-2) var(--space-2);
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+.svg-ref-items .wb-ref {
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+}
+.svg-toolbar {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    flex-shrink: 0;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-top: 1px solid var(--ms-border);
+    overflow: hidden;
+}
+.svg-controls {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    gap: var(--space-2);
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+.svg-controls > * {
+    flex: 0 0 auto;
+}
+.svg-controls .sp-chip {
+    max-width: 380px;
+}
+.svg-toolbar .sp-chip-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+.svg-model-label {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+}
+.svg-spec-label {
+    color: var(--ms-muted);
+    font-size: var(--fs-caption);
+}
+.svg-toolbar .wb-footer {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+.svg-toolbar .wb-estimate {
+    margin-left: auto;
+}
+.svg-composer:not([data-canvas-video]) .svg-toolbar .wb-estimate strong {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--ms-text);
+    white-space: nowrap;
+}
+.svg-toolbar .wb-estimate > span {
+    display: none;
+}
+.svg-composer:not([data-canvas-video]) .svg-toolbar .wb-submit.ant-btn {
+    --button-primary-fg: var(--ms-ink-text);
+    --button-primary-bg: var(--ms-ink);
+    --button-primary-hover-bg: color-mix(in srgb, var(--ms-ink) 88%, var(--ms-ink-text));
+    --button-primary-active-bg: color-mix(in srgb, var(--ms-ink) 80%, var(--ms-ink-text));
+    --button-primary-shadow: none;
+    --button-primary-active-shadow: none;
+}
+.svg-composer:not([data-canvas-video]) .svg-toolbar .wb-submit.ant-btn:disabled {
+    --button-primary-fg: var(--ms-muted);
+    --button-primary-bg: var(--ms-soft);
+    --button-disabled-opacity: 1;
+}
+.svg-settings.wb-shell {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: var(--space-3);
+    gap: var(--space-4);
+    background: transparent;
+}
+.sp-dd-panel.sp-dd-float.svg-settings-popover {
+    z-index: var(--z-popover);
+}
+.svg-settings .wb-section {
+    padding: 0;
+}
+.svg-composer[data-canvas-video] {
+    --button-primary-bg: var(--ms-ink);
+    --button-primary-fg: var(--ms-ink-text);
+    --button-primary-hover-bg: color-mix(in srgb, var(--ms-ink) 90%, var(--ms-surface));
+    --button-primary-active-bg: var(--button-primary-hover-bg);
+    min-height: 0;
+}
+.sp-canvas-floating-composer[data-fit-node] > header {
+    flex-shrink: 0;
+}
+.sp-canvas-floating-composer[data-fit-node] .sp-canvas-floating-composer-body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.svg-composer[data-canvas-video] > [hidden] {
+    display: none;
+}
+.svg-composer[data-canvas-video] .svg-inputs {
+    padding: var(--space-2) var(--space-2) var(--space-3);
+}
+.svg-composer[data-canvas-video] .wb-ref-row:has(.wb-drop) {
+    overflow-x: visible;
+}
+.svg-composer[data-canvas-video] .wb-drop {
+    flex: 1 1 auto;
+    justify-content: center;
+    gap: var(--space-2);
+    padding-inline: var(--space-2);
+}
+.svg-composer[data-canvas-video] .wb-ref-library {
+    width: var(--space-14, 56px);
+}
+.svg-composer[data-canvas-video] .svg-inputs .wb-prompt-editor {
+    min-height: 88px;
+}
+.svg-composer[data-canvas-video] .wb-submit.ant-btn {
+    min-width: 0;
+}
+.svg-composer[data-canvas-video] .svg-toolbar {
+    flex: 0 0 auto;
+    padding: var(--space-3) var(--space-2) var(--space-1);
+}
+.svg-composer[data-canvas-video] .wb-estimate strong {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    white-space: nowrap;
+}
+.wb-video-reference-kinds {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    gap: var(--space-1);
+}
+.wb-video-reference-kinds > button {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-1);
+    min-width: 0;
+    padding: var(--space-2) var(--space-1);
+    border: 0;
+    border-radius: var(--r-md);
+    background: var(--ms-surface-2);
+    color: var(--ms-muted);
+    font-size: var(--fs-label);
+    cursor: pointer;
+}
+.wb-video-reference-kinds > button[aria-pressed="true"],
+.wb-video-reference-kinds > button:hover {
+    background: var(--ms-hover);
+    color: var(--ms-text);
+}
+.wb-video-reference-kinds > button[aria-pressed="true"] {
+    box-shadow: inset 0 0 0 1px var(--ms-border);
+}
+.wb-video-reference-kinds > button > span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    white-space: nowrap;
+}
+.wb-video-reference-kinds small {
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--ms-muted);
+    font-size: var(--fs-caption);
+    font-variant-numeric: tabular-nums;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.svg-canvas-config {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+.svg-canvas-config-bar,
+.svg-canvas-config-bar > div {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+.svg-canvas-config-bar {
+    flex-shrink: 0;
+    justify-content: space-between;
+    padding: var(--space-1) var(--space-2) var(--space-2);
+    border-bottom: 1px solid var(--ms-border);
+}
+.svg-canvas-config-bar button,
+.canvas-model-picker-menu.is-inline .canvas-model-picker-back {
+    padding: var(--space-1) var(--space-3);
+    border: 0;
+    border-radius: var(--r-sm);
+    color: var(--ms-muted);
+    font-size: var(--fs-label);
+    cursor: pointer;
+}
+.svg-canvas-config-bar button[aria-pressed="true"],
+.svg-canvas-config-bar button:hover,
+.canvas-model-picker-menu.is-inline .canvas-model-picker-back:hover {
+    background: var(--ms-hover);
+    color: var(--ms-text);
+}
+.svg-canvas-config-bar > button {
+    color: var(--ms-text);
+}
+.svg-canvas-config-content {
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding: var(--space-2);
+}
+.svg-canvas-config-content > .wb-section {
+    padding: 0;
+    border: 0;
+}
+.svg-canvas-config-content .canvas-model-picker-menu.is-inline {
+    width: 100%;
+    min-width: 0;
+    max-height: none;
+    color: var(--ms-text);
+    overflow: visible;
+}
+.canvas-model-picker-menu.is-inline .canvas-model-picker-two-pane {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: var(--space-1);
+    overflow: visible;
+}
+.canvas-model-picker-menu.is-inline .canvas-model-picker-model-pane {
+    overflow: visible;
+}
+.canvas-model-picker-menu.is-inline .canvas-model-picker-back {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: var(--space-1);
+}
+.sp-canvas-video-linked-text {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+    color: var(--ms-muted);
+    font-size: var(--fs-caption);
+}
+.sp-canvas-video-linked-text strong {
+    flex-shrink: 0;
+    color: var(--ms-text-2);
+}
+.sp-canvas-video-linked-text span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@media (max-width: 760px) {
+    .svg-workspace .wb-page-embedded .wb-shell {
+        padding-inline: var(--space-3);
+    }
+    .svg-composer:not([data-canvas-video]) .svg-inputs {
+        gap: var(--space-2);
+        padding: var(--space-3);
+    }
+    .svg-reference {
+        position: relative;
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .svg-ref-upload {
+        padding: var(--space-2);
+        align-items: flex-start;
+    }
+    .svg-ref-upload > svg {
+        width: 14px;
+        height: 14px;
+        margin-top: 2px;
+    }
+    .svg-ref-upload .svg-ref-add {
+        display: none;
+    }
+    .svg-ref-library.ant-btn {
+        position: absolute;
+        inset: var(--space-1) var(--space-1) auto auto;
+        width: 26px;
+        height: 26px;
+        margin: 0;
+    }
+    .svg-ref-name strong {
+        padding-inline-end: 26px;
+    }
+    .svg-ref-name small {
+        line-height: 1.35;
+    }
+    .svg-toolbar {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: var(--space-1);
+        padding: var(--space-2) var(--space-3);
+    }
+    .svg-controls {
+        flex: 1 0 100%;
+    }
+    .svg-spec-label {
+        display: none;
+    }
+    .svg-composer[data-canvas-video] .svg-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+    .svg-composer[data-canvas-video] .svg-inputs .wb-section-title span {
+        display: none;
+    }
+    .svg-composer[data-canvas-video] .svg-inputs > .wb-section:last-child {
+        flex: 1;
+        min-height: 64px;
+    }
+    .svg-composer[data-canvas-video] .svg-inputs > .wb-section:first-child {
+        flex-shrink: 0;
+        max-width: 100%;
+    }
+    .svg-composer[data-canvas-video] .svg-toolbar {
+        flex-wrap: wrap;
+    }
+    .svg-composer[data-canvas-video] .svg-controls {
+        flex-basis: 100%;
+    }
+    .svg-composer[data-canvas-video] .wb-footer {
+        flex-basis: 100%;
+        justify-content: flex-end;
+    }
+    .svg-composer[data-canvas-video] .wb-estimate,
+    .svg-composer[data-canvas-video] .wb-submit > span:not(.ant-btn-icon) {
+        display: inline-flex;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .svg-composer *,
+    .svg-settings * {
+        animation: none;
+        transition: none;
+    }
+}

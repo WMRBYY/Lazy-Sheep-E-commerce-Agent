@@ -1,0 +1,202 @@
+.sdpi-summary,
+.sdpi-modal {
+    --sdpi-surface: var(--user-surface, var(--background));
+    --sdpi-muted: var(--user-surface-muted, var(--muted));
+    --sdpi-ink: var(--user-ink, var(--foreground));
+    --sdpi-secondary: var(--user-ink-muted, var(--text-secondary));
+    --sdpi-border: var(--user-border, var(--border));
+    color: var(--sdpi-ink);
+}
+
+.sdpi-summary {
+    align-self: start;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid var(--sdpi-border);
+    border-radius: var(--r-lg);
+    background: color-mix(in srgb, var(--sdpi-muted) 44%, var(--sdpi-surface));
+}
+
+.sdpi-summary-heading,
+.sdpi-actions,
+.sdpi-credit {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.sdpi-summary-heading strong,
+.sdpi-recognition strong {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.sdpi-summary-heading span {
+    padding: 1px 6px;
+    border-radius: var(--r-sm);
+    background: color-mix(in srgb, var(--status-success) 12%, var(--sdpi-surface));
+    font-size: 11px;
+}
+
+.sdpi-summary dl {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 4px 10px;
+    margin: 10px 0;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.sdpi-summary dt,
+.sdpi-note,
+.sdpi-modal-footer > span {
+    color: var(--sdpi-secondary);
+}
+
+.sdpi-summary dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.sdpi-actions {
+    margin-top: 10px;
+}
+
+.sdpi-credit {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 3px;
+    padding-inline-start: 5px;
+    border-inline-start: 1px solid var(--sdpi-border);
+    color: var(--sdpi-secondary);
+    font-size: 11px;
+}
+
+.sdpi-note,
+.sdpi-error,
+.sdpi-success {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.sdpi-note {
+    margin-top: 4px;
+}
+
+.sdpi-error,
+.sdpi-success {
+    padding: 8px 10px;
+    border-radius: var(--r-md);
+}
+
+.sdpi-error {
+    background: color-mix(in srgb, var(--status-error) 9%, var(--sdpi-surface));
+}
+
+.sdpi-success {
+    background: color-mix(in srgb, var(--status-success) 11%, var(--sdpi-surface));
+}
+
+.sdpi-modal .sdpi-modal-header {
+    margin: 0;
+    padding: 18px 50px 16px 24px;
+    border-bottom: 1px solid var(--sdpi-border);
+}
+
+.sdpi-modal-header p {
+    margin: 4px 0 0;
+    color: var(--sdpi-secondary);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.sdpi-modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - 140px);
+    background: var(--sdpi-surface);
+}
+
+.sdpi-modal-form {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 18px 24px 20px;
+}
+
+.sdpi-recognition {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding: 10px 12px;
+    border: 1px solid var(--sdpi-border);
+    border-radius: var(--r-md);
+    background: color-mix(in srgb, var(--sdpi-muted) 58%, var(--sdpi-surface));
+}
+
+.sdpi-fields {
+    display: grid;
+    min-inline-size: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 12px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.sdpi-fields legend {
+    margin-bottom: 6px;
+    padding: 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.sdpi-fields label,
+.sdpi-claims {
+    display: grid;
+    min-width: 0;
+    gap: 5px;
+    color: var(--sdpi-secondary);
+    font-size: 12px;
+}
+
+.sdpi-modal-footer {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 24px;
+    border-top: 1px solid var(--sdpi-border);
+    font-size: 12px;
+}
+
+.sdpi-save {
+    --button-primary-bg: var(--primary);
+    --button-primary-fg: var(--primary-foreground);
+    --button-primary-hover-bg: color-mix(in srgb, var(--primary-foreground) 9%, var(--primary));
+    --button-primary-active-bg: color-mix(in srgb, var(--primary-foreground) 15%, var(--primary));
+}
+
+@media (max-width: 600px) {
+    .sdpi-modal .sdpi-modal-header {
+        padding-left: 16px;
+    }
+
+    .sdpi-modal-form,
+    .sdpi-modal-footer {
+        padding-inline: 16px;
+    }
+
+    .sdpi-fields {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

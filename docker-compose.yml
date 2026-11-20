@@ -1,0 +1,84 @@
+name: meiyeai-ecommerce
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: meiyeai
+      POSTGRES_USER: meiyeai
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your local .env}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U meiyeai -d meiyeai"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  agent:
+    build:
+      context: .
+      dockerfile: yingce-agent/Dockerfile
+    environment:
+      YINGCE_AGENT_TOKEN: ${YINGCE_AGENT_TOKEN:?Set YINGCE_AGENT_TOKEN to at least 32 random characters}
+      MAX_CONCURRENT_SESSIONS: 8
+      YINGCE_AGENT_SESSION_CAP: 8
+    restart: unless-stopped
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      CANVAS_BACKEND_ADDR: :8080
+      CANVAS_BACKEND_DATA_DIR: /data
+      CANVAS_DATABASE_DRIVER: postgres
+      DATABASE_URL: postgres://meiyeai:${POSTGRES_PASSWORD}@postgres:5432/meiyeai?sslmode=disable
+      REDIS_URL: redis://redis:6379/0
+      CANVAS_AUTO_MIGRATE: "true"
+      CANVAS_REGISTRATION_ENABLED: ${CANVAS_REGISTRATION_ENABLED:-false}
+      CANVAS_CORS_ORIGINS: ${CANVAS_CORS_ORIGINS:-http://localhost:3000}
+      CANVAS_PUBLIC_BASE_URL: ${CANVAS_PUBLIC_BASE_URL:-}
+      CANVAS_ALLOWED_PRIVATE_UPSTREAM_HOSTS: ${CANVAS_ALLOWED_PRIVATE_UPSTREAM_HOSTS:-}
+      CANVAS_WORKER_CONCURRENCY: ${CANVAS_WORKER_CONCURRENCY:-3}
+      CANVAS_CHANNEL_CONCURRENCY: ${CANVAS_CHANNEL_CONCURRENCY:-3}
+      CANVAS_LOG_LEVEL: ${CANVAS_LOG_LEVEL:-info}
+      CANVAS_SHUTDOWN_TIMEOUT: ${CANVAS_SHUTDOWN_TIMEOUT:-10m}
+      YINGCE_AGENT_URL: http://agent:8081
+      YINGCE_AGENT_TOKEN: ${YINGCE_AGENT_TOKEN}
+      GIN_MODE: release
+    volumes:
+      - backend-data:/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      agent:
+        condition: service_healthy
+    stop_grace_period: ${CANVAS_SHUTDOWN_TIMEOUT:-10m}
+    restart: unless-stopped
+  web:
+    build: .
+    ports:
+      - "${CANVAS_HTTP_PORT:-3000}:3000"
+    volumes:
+      - web-assets:/usr/share/nginx/html
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  postgres-data:
+  redis-data:
+  backend-data:
+  web-assets:

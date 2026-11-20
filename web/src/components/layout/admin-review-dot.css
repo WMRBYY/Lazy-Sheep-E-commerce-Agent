@@ -1,0 +1,22 @@
+.admin-review-dot {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--admin-status-error, var(--status-error, var(--destructive)));
+}
+
+.admin-review-icon {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+    line-height: 0;
+}
+
+.admin-review-icon > .admin-review-dot {
+    position: absolute;
+    inset-block-start: -2px;
+    inset-inline-end: -3px;
+    box-shadow: 0 0 0 2px var(--admin-layer-0, var(--user-surface, var(--background)));
+}

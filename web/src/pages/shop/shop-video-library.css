@@ -1,0 +1,16 @@
+/* 视频上传位按用途分组，点击卡片打开对应素材库。 */
+.svc-material-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    min-width: 0;
+    max-width: 100%;
+}
+.svc-material-slot-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    min-width: 0;
+    max-width: 100%;
+}

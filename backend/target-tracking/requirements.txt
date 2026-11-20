@@ -1,0 +1,9 @@
+torch==2.5.1
+torchvision==0.20.1
+sam2==1.1.0
+opencv-python-headless==4.11.0.86
+numpy==2.2.6
+fastapi==0.115.12
+uvicorn==0.34.2
+python-multipart==0.0.20
+huggingface-hub==0.30.2

@@ -1,0 +1,211 @@
+/* 详情图作品筛选与历史项目。 */
+.sdx-seg {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 12px;
+    background: var(--ms-soft);
+}
+.sdx-seg button {
+    height: 30px;
+    padding: 0 14px;
+    border-radius: 9px;
+    color: var(--ms-text-2);
+    font-size: 12px;
+    transition:
+        background 0.16s,
+        color 0.16s,
+        box-shadow 0.2s;
+}
+.sdx-seg button[data-active] {
+    background: var(--ms-surface);
+    color: var(--ms-text);
+    font-weight: 700;
+    box-shadow: var(--ms-shadow);
+}
+.sdx-seg button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.sdx-works > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.sdx-works h3 {
+    margin: 0;
+}
+.sdx-works-tools {
+    display: flex;
+    gap: 6px;
+}
+.sdx-tool {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid var(--ms-border);
+    border-radius: 999px;
+    color: var(--ms-text-2);
+    font-size: 12px;
+    transition:
+        background 0.16s,
+        border-color 0.16s;
+}
+.sdx-tool.is-icon {
+    justify-content: center;
+    width: 30px;
+    padding: 0;
+}
+.sdx-tool:hover,
+.sdx-tool[data-open] {
+    border-color: var(--ms-border-strong);
+    background: var(--ms-hover);
+}
+.sdx-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 230px;
+    font-size: 12px;
+}
+.sdx-filter > span {
+    color: var(--ms-muted);
+}
+.sdx-filter .sdx-seg {
+    display: flex;
+}
+.sdx-filter .sdx-seg button {
+    flex: 1;
+}
+
+/* 弹窗 */
+.sdx-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(3px);
+}
+.sdx-modal {
+    display: flex;
+    flex-direction: column;
+    width: min(880px, 100%);
+    max-height: calc(100vh - 32px);
+    overflow: hidden;
+    border: 1px solid var(--ms-border);
+    border-radius: 22px;
+    background: var(--ms-surface);
+    box-shadow: var(--ms-shadow-pop);
+    color: var(--ms-text);
+}
+.sdx-modal > header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--ms-border);
+}
+.sdx-modal h3 {
+    flex: 1;
+    margin: 0;
+    font-size: 16px;
+}
+.sdx-modal h3 small {
+    margin-left: 6px;
+    color: var(--ms-muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+.sdx-icon {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border-radius: 999px;
+    color: var(--ms-muted);
+    transition: background 0.16s;
+}
+.sdx-icon:hover {
+    background: var(--ms-hover);
+    color: var(--ms-text);
+}
+.sdx-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 220px;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid var(--ms-border);
+    border-radius: 999px;
+    color: var(--ms-muted);
+}
+.sdx-search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--ms-text);
+    font-size: 12px;
+}
+.sdx-history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+    padding: 16px 20px 20px;
+    overflow-y: auto;
+}
+.sdx-history-card {
+    position: relative;
+}
+.sdx-history-open {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    text-align: left;
+}
+.sdx-history-open strong {
+    overflow: hidden;
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.sdx-history-open small {
+    color: var(--ms-faint);
+    font-size: 11px;
+}
+.sdx-work-cover i {
+    display: grid;
+    height: 100%;
+    place-items: center;
+    color: var(--ms-faint);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+}
+.sdx-history-delete {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: grid;
+    width: 26px;
+    height: 26px;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.16s;
+}
+.sdx-history-card:hover .sdx-history-delete,
+.sdx-history-delete:focus-visible {
+    opacity: 1;
+}

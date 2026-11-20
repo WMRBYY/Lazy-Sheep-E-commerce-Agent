@@ -1,0 +1,197 @@
+.sp-canvas-home {
+    height: 100%;
+    overflow: auto;
+    background: var(--ms-page);
+    color: var(--ms-text);
+}
+.sp-canvas-home-content {
+    max-width: 1600px;
+    margin: auto;
+    padding: 40px clamp(24px, 5vw, 72px);
+}
+.sp-canvas-home-heading,
+.sp-canvas-home-heading > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.sp-canvas-home-heading h1,
+.sp-canvas-workflows h2 {
+    margin: 0;
+    font-size: 26px;
+}
+.sp-canvas-home-heading span,
+.sp-canvas-project small,
+.sp-canvas-workflows p {
+    color: var(--ms-muted);
+}
+.sp-canvas-home-heading button {
+    border: 1px solid var(--ms-border);
+    background: var(--ms-surface);
+    color: var(--ms-text);
+    padding: 9px;
+    cursor: pointer;
+}
+.sp-canvas-home-heading button[aria-pressed="true"] {
+    background: var(--ms-hover);
+}
+.sp-canvas-projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 22px;
+    margin: 32px 0 64px;
+}
+.sp-canvas-project {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+    background: none;
+    border: 0;
+    color: var(--ms-text);
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+    padding: 0;
+}
+.sp-canvas-project-wrap {
+    position: relative;
+    min-width: 0;
+}
+.sp-canvas-project-preview {
+    width: 100%;
+    overflow: hidden;
+}
+.sp-canvas-project-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.sp-project-more {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--ms-border);
+    border-radius: 10px;
+    background: var(--ms-surface);
+    color: var(--ms-text);
+    box-shadow: var(--ms-shadow);
+    opacity: 0;
+    cursor: pointer;
+    transition:
+        opacity 160ms ease,
+        transform 160ms ease;
+    transform: translateY(-3px);
+}
+.sp-canvas-project-wrap:hover .sp-project-more,
+.sp-canvas-project-wrap:focus-within .sp-project-more,
+.sp-project-more[aria-expanded="true"] {
+    opacity: 1;
+    transform: none;
+}
+.sp-project-more:focus-visible {
+    outline: 2px solid var(--ms-accent-strong);
+    outline-offset: 3px;
+}
+@media (hover: none) {
+    .sp-project-more {
+        opacity: 1;
+        transform: none;
+    }
+}
+.sp-canvas-project-preview {
+    height: 170px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--ms-border);
+    border-radius: 14px;
+    background: var(--ms-surface-2);
+    color: var(--ms-muted);
+}
+.sp-canvas-project:hover .sp-canvas-project-preview {
+    border-color: var(--ms-accent);
+}
+.sp-canvas-project strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 17px;
+}
+.sp-canvas-projects.is-list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+.sp-canvas-projects.is-list .sp-canvas-project {
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid var(--ms-border);
+}
+.sp-canvas-projects.is-list .sp-canvas-project-preview {
+    width: 80px;
+    height: 56px;
+    flex: none;
+}
+.sp-canvas-workflows h2 {
+    margin-bottom: var(--space-4);
+}
+
+.sp-canvas-workflows p {
+    margin: 0;
+}
+.sp-canvas-create-form {
+    display: grid;
+    gap: var(--space-4);
+}
+.sp-canvas-project-modal {
+    --unified-input-surface: var(--ms-soft);
+    --unified-input-surface-hover: var(--ms-hover);
+    --unified-input-surface-focus: var(--ms-hover);
+    --unified-input-placeholder: var(--ms-muted);
+    --button-primary-bg: var(--ms-ink);
+    --button-primary-hover-bg: var(--ms-text-2);
+    --button-primary-active-bg: var(--ms-ink);
+    --button-primary-fg: var(--ms-ink-text);
+    --button-primary-shadow: none;
+}
+.sp-canvas-project-modal .ant-modal-container {
+    background: var(--ms-surface);
+    color: var(--ms-text);
+}
+.sp-canvas-project-modal .ant-modal-header {
+    background: transparent;
+}
+.sp-canvas-project-modal .ant-modal-title,
+.sp-canvas-project-modal .ant-modal-close {
+    color: var(--ms-text);
+}
+.sp-canvas-create-form .ant-input {
+    background: var(--ms-soft);
+    border-color: var(--ms-border);
+    color: var(--ms-text);
+}
+.sp-canvas-create-form > div {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+}
+@media (max-width: 520px) {
+    .sp-canvas-home-content {
+        padding: 24px 16px;
+    }
+    .sp-canvas-home-heading span {
+        font-size: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-project-more {
+        transition: none;
+    }
+}

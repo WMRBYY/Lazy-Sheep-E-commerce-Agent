@@ -1,0 +1,17 @@
+# Optional private service. Enable only after measuring latency and memory on the deployment host.
+services:
+  target-tracking:
+    build: .
+    restart: unless-stopped
+    cpus: 2
+    mem_limit: 4g
+    pids_limit: 128
+    environment:
+      CANVAS_TARGET_TRACKING_TOKEN: ${CANVAS_TARGET_TRACKING_TOKEN:?set a private worker token}
+      TARGET_THREADS: 2
+    volumes:
+      - target-tracking-models:/models
+    expose:
+      - "8096"
+volumes:
+  target-tracking-models:
