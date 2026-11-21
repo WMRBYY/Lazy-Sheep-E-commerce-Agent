@@ -18,6 +18,11 @@ import (
 
 type wechatTestHost struct{ nopHost }
 
+const (
+	testWechatAppID        = "wx-test-app-id"
+	testWechatChangedAppID = "wx-test-app-id-next"
+)
+
 func (wechatTestHost) RequireAdmin(user *model.User) error {
 	if user == nil || user.Role != model.UserRoleAdmin {
 		return kernel.Forbidden("需要管理员权限")
@@ -41,7 +46,7 @@ func newWechatTestService(t *testing.T) (*Service, *gorm.DB, *model.User) {
 	if err := db.Create(u).Error; err != nil {
 		t.Fatal(err)
 	}
-	if _, err := s.UpdateWechatSetting(u, WechatSettingRequest{Enabled: true, AppID: "wx1234567890123456", AppSecret: "private-app-secret", RedirectURL: "https://canvas.example.com/api/auth/wechat/callback"}); err != nil {
+	if _, err := s.UpdateWechatSetting(u, WechatSettingRequest{Enabled: true, AppID: testWechatAppID, AppSecret: "private-app-secret", RedirectURL: "https://canvas.example.com/api/auth/wechat/callback"}); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := s.UpdateRegistrationSetting(u, RegistrationSettingRequest{Enabled: true, EmailVerificationRequired: boolPtr(false)}); err != nil {
@@ -85,7 +90,7 @@ func beginWechatTestLogin(t *testing.T, s *Service) string {
 		t.Fatal(err)
 	}
 	u, err := url.Parse(target)
-	if err != nil || u.Host != "open.weixin.qq.com" || u.Query().Get("appid") != "wx1234567890123456" || u.Query().Get("scope") != "snsapi_login" || u.Query().Get("state") != state {
+	if err != nil || u.Host != "open.weixin.qq.com" || u.Query().Get("appid") != testWechatAppID || u.Query().Get("scope") != "snsapi_login" || u.Query().Get("state") != state {
 		t.Fatalf("invalid authorization URL %q: %v", target, err)
 	}
 	return state
@@ -152,7 +157,7 @@ func TestWechatRegistrationIsAtomicAndExistingIdentitySurvivesClosedRegistration
 	if result.User.Role != model.UserRoleUser || result.User.PasswordHash != "" || result.User.IdentityProvider != "wechat" || result.User.AvatarURL == "" {
 		t.Fatalf("unexpected user %#v", result.User)
 	}
-	identity, err := s.repo.UserIdentity("wechat", "wx1234567890123456:openid-one")
+	identity, err := s.repo.UserIdentity("wechat", testWechatAppID+":openid-one")
 	if err != nil || identity.UserID != result.User.ID {
 		t.Fatalf("identity=%#v err=%v", identity, err)
 	}
@@ -189,7 +194,7 @@ func TestWechatRegistrationRequiresVerificationAndRollsBackIdentityConflicts(t *
 	if err := s.SendRegistrationEmailCode("creator@example.com"); err != nil {
 		t.Fatal(err)
 	}
-	if err := db.Create(&model.UserIdentity{ID: "conflict", UserID: admin.ID, Provider: "wechat", Subject: "wx1234567890123456:openid-verified"}).Error; err != nil {
+	if err := db.Create(&model.UserIdentity{ID: "conflict", UserID: admin.ID, Provider: "wechat", Subject: testWechatAppID + ":openid-verified"}).Error; err != nil {
 		t.Fatal(err)
 	}
 	_, err = s.CompleteWechatRegistration(pending.RegistrationToken, RegisterRequest{AcceptedTerms: true, Email: "creator@example.com", EmailCode: delivered})
@@ -223,7 +228,7 @@ func TestWechatRegistrationRequiresVerificationAndRollsBackIdentityConflicts(t *
 
 func TestWechatBindingAndReauthenticationRequireOriginalSessionAndIdentity(t *testing.T) {
 	s, db, u, cookie := newProfileTestService(t)
-	if _, err := s.UpdateWechatSetting(u, WechatSettingRequest{Enabled: true, AppID: "wx1234567890123456", AppSecret: "private-app-secret", RedirectURL: "https://canvas.example.com/api/auth/wechat/callback"}); err != nil {
+	if _, err := s.UpdateWechatSetting(u, WechatSettingRequest{Enabled: true, AppID: testWechatAppID, AppSecret: "private-app-secret", RedirectURL: "https://canvas.example.com/api/auth/wechat/callback"}); err != nil {
 		t.Fatal(err)
 	}
 	stubWechat(t, s, "bound-openid")
@@ -297,7 +302,7 @@ func TestWechatRejectsChangedAppAndDoesNotCreateUsersThroughSharedLogin(t *testi
 	s, db, admin := newWechatTestService(t)
 	calls := stubWechat(t, s, "one")
 	state := beginWechatTestLogin(t, s)
-	if _, err := s.UpdateWechatSetting(admin, WechatSettingRequest{Enabled: true, AppID: "wx9876543210987654", AppSecret: "new-secret", RedirectURL: "https://canvas.example.com/api/auth/wechat/callback"}); err != nil {
+	if _, err := s.UpdateWechatSetting(admin, WechatSettingRequest{Enabled: true, AppID: testWechatChangedAppID, AppSecret: "new-secret", RedirectURL: "https://canvas.example.com/api/auth/wechat/callback"}); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := s.CompleteWechatLogin(context.Background(), state, "code", "", LoginContext{}); err == nil || *calls != 0 {
@@ -315,10 +320,10 @@ func TestWechatRejectsChangedAppAndDoesNotCreateUsersThroughSharedLogin(t *testi
 
 func TestWechatBindingCannotTakeIdentityFromAnotherAccount(t *testing.T) {
 	s, db, u, cookie := newProfileTestService(t)
-	if _, err := s.UpdateWechatSetting(u, WechatSettingRequest{Enabled: true, AppID: "wx1234567890123456", AppSecret: "private-app-secret", RedirectURL: "https://canvas.example.com/api/auth/wechat/callback"}); err != nil {
+	if _, err := s.UpdateWechatSetting(u, WechatSettingRequest{Enabled: true, AppID: testWechatAppID, AppSecret: "private-app-secret", RedirectURL: "https://canvas.example.com/api/auth/wechat/callback"}); err != nil {
 		t.Fatal(err)
 	}
-	identity := &model.UserIdentity{ID: "other-identity", UserID: "another-user", Provider: "wechat", Subject: "wx1234567890123456:taken-openid"}
+	identity := &model.UserIdentity{ID: "other-identity", UserID: "another-user", Provider: "wechat", Subject: testWechatAppID + ":taken-openid"}
 	if err := db.Create(identity).Error; err != nil {
 		t.Fatal(err)
 	}
